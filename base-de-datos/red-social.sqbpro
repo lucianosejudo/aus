@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/luciano/Downloads/red-social.sqlite" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure query browser pragmas" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1063"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="usuarios"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="comentarios" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values><column index="3" value="8"/></filter_values><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="me_gusta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="publicaciones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="seguidores" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="usuarios" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT U.nombre
+FROM usuarios U
+INNER JOIN publicaciones P ON U.id &lt;&gt; P.id_autor</sql><sql name="SQL 2">SELECT COUNT()
+FROM publicaciones P, me_gusta M
+WHERE P.id_autor = 2
+AND P.fecha = (SELECT MAX(S.fecha) FROM publicaciones S WHERE S.id_autor = 2)
+AND M.id_publicacion = P.id
+
+</sql><sql name="SQL 4">SELECT DISTINCT U.nombre
+FROM usuarios U, seguidores S
+WHERE U.id = S.id_usuario
+AND U.id = (
+	SELECT U.id_usuario	FROM (
+	SELECT MAX(cantidad), P.id_usuario FROM (
+	SELECT COUNT() as cantidad, N.id_usuario
+	FROM seguidores N GROUP BY N.id_usuario) P) U)</sql><sql name="SQL 7">SELECT U.nombre
+FROM usuarios U, seguidores S
+WHERE S.id_usuario = 4
+AND U.id = S.id_seguidor</sql><sql name="SQL 8">SELECT C.texto
+FROM comentarios C
+WHERE C.id_autor = (
+	SELECT U.id 
+	FROM usuarios U
+	WHERE U.nombre = 'juan03'
+	)</sql><sql name="SQL 9">	SELECT A.cantidadComentarios/B.cantidadPublicacion as promedio, A.id_autor 
+	FROM (
+		SELECT COUNT() as cantidadComentarios, C.id_autor
+		FROM comentarios C
+		GROUP BY C.id_autor
+		) A, (
+			SELECT COUNT() as cantidadPublicacion, P.id_autor
+			FROM publicaciones P
+			GROUP BY P.id_autor
+		) B
+	WHERE A.id_autor = B.id_autor</sql><sql name="SQL 10">SELECT U.nombre
+FROM usuarios U
+WHERE (SELECT COUNT() FROM seguidores S WHERE S.id_usuario = U.id) = 0
+AND (SELECT COUNT() FROM publicaciones P WHERE P.id_autor = U.id) &gt; 0
+</sql><sql name="SQL 12">SELECT U.id, C.id
+FROM usuarios U, usuarios C
+WHERE U.password = C.password
+AND U.id &lt;&gt; C.id	</sql><current_tab id="7"/></tab_sql></sqlb_project>

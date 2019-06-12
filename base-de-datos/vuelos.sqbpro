@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/luciano/Downloads/vuelos.sqlite" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure query browser pragmas" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1393"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="vuelos"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="aeropuertos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="pasaje" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values><column index="1" value="41"/></filter_values><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="pasajeros" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort><column index="5" mode="1"/></sort><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="vuelos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort><column index="4" mode="1"/></sort><column_widths/><filter_values/><conditional_formats/><display_formats/><hidden_columns/><plot_y_axes/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT P.pasaporte, P.nombre, P.apellido
+FROM pasajeros P, pasaje S, vuelos V
+WHERE V.numero_de_vuelo = 'AR1247'
+AND S.id_pasajero = P.id
+AND V.id = S.id_vuelo</sql><sql name="SQL 2">SELECT COUNT()
+FROM aeropuertos A, vuelos V
+WHERE A.codigo = 'ROS'
+AND V.id_aeropuerto_origen = A.id
+AND V.duracion &lt; 180</sql><sql name="SQL 3">SELECT P.asiento
+FROM pasaje P, pasajeros U, vuelos V
+WHERE U.nombre = 'Luis'
+AND U.apellido = 'Acosta'
+AND P.id_pasajero = U.id
+AND V.numero_de_vuelo = 'BR2910'
+AND V.id = P.id_vuelo</sql><sql name="SQL 4">SELECT P.nombre
+FROM pasajeros P, vuelos V, aeropuertos A, pasaje S
+WHERE P.nacionalidad = 'Argentina'
+AND A.nombre = 'Londres-Heathrow'
+AND V.id_aeropuerto_destino = A.id
+AND V.id = S.id_vuelo
+AND S.id_vuelo = P.id</sql><sql name="SQL 5">SELECT V.id
+FROM vuelos V
+WHERE V.duracion BETWEEN 60 AND 80</sql><sql name="SQL 6">SELECT V.numero_de_vuelo, P.id_vuelo, COUNT() AS cantidad
+FROM pasaje P, vuelos V
+WHERE V.id = P.id_vuelo
+GROUP BY P.id_vuelo
+ORDER BY cantidad DESC
+LIMIT 5</sql><sql name="SQL 8">SELECT P.nombre, P.apellido
+FROM pasajeros P
+WHERE P.nacionalidad = 'Argentina'
+AND P.apellido LIKE '%la' OR P.apellido LIKE '%ma' OR P.apellido LIKE '%sa' </sql><sql name="SQL 9">SELECT V.id_vuelo, P.nacionalidad, COUNT() AS cantidad
+FROM pasajeros P, pasaje V
+WHERE V.id_pasajero = P.id
+GROUP BY P.nacionalidad
+</sql><sql name="SQL 10">SELECT p.nombre, p.apellido
+FROM pasajeros p, vuelos v, pasaje s	
+WHERE V.numero_de_vuelo = 'AR2112.'
+AND V.id = s.id_vuelo
+AND s.asiento = 'C29'
+AND s.id_pasajero = p.id
+</sql><sql name="SQL 11">SELECT V.*
+FROM vuelos V, aeropuertos A
+WHERE A.codigo = 'CAN'
+AND A.id = V.id_aeropuerto_destino
+ORDER BY V.duracion ASC
+LIMIT 3</sql><current_tab id="9"/></tab_sql></sqlb_project>
