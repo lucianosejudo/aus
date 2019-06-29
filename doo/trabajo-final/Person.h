@@ -10,14 +10,21 @@ class Person {
 
     public:
       // constructor
+      Person(); // default
       Person(string, int);
       
       // metodos
       string getName();
-      void hacerOferta(Lote lote, float cantidad);
+      int getId();
+      void hacerOferta(Lote& lote, int cantidad);
 };
 
 // definicion del constructor
+//default
+Person::Person(){ 
+  nombre = ' ';
+}
+// with arguments
 Person::Person(string personName, int personId){ 
   nombre = personName;
   id = personId;
@@ -28,11 +35,15 @@ string Person::getName() {
   return nombre;
 }
 
-void Person::hacerOferta(Lote lote, float cantidad) {
-  float puja = lote.getPuja();
+// definicion getId()
+int Person::getId() {
+  return id;
+}
 
+void Person::hacerOferta(Lote& lote, int cantidad) {
+  int puja = lote.getPuja();
   if (cantidad > puja) {
     lote.setPuja(cantidad);
-    cout << nombre << "hizo una oferta de " << cantidad << endl;
+    cout << nombre << " hizo una oferta de: $" << cantidad << endl;
   }
 }

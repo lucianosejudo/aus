@@ -12,14 +12,14 @@ class Lote {
       int puja;
 
     public:
-      Lote(string, int, vector<Item>, int);
       // constructor
+      Lote(string, int, vector<Item>, int);
       //metodos
       vector<Item> getItems();
       string getName();
       int getNumero();
       int getPuja();
-      void setPuja(float);
+      void setPuja(int);
 };
 
 // definicion del constructor
@@ -46,6 +46,6 @@ int Lote::getPuja() {
   return puja;
 }
 
-void Lote::setPuja(float newPuja) {
+void Lote::setPuja(int newPuja) {
   puja = newPuja;
 }

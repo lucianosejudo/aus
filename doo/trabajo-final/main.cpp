@@ -99,7 +99,7 @@ int main()
   printLotes(lotes);
   
   // Crear subasta
-  Subasta subasta(lotes, lotes.size(), participants);
+  Subasta subasta(lotes, lotes.size(), participants, Person());
   // Iniciar subasta
   string tecla;
   cout << "Para empezar la subasta, presione cualquier tecla" << endl;
