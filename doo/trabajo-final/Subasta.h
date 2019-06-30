@@ -66,7 +66,7 @@ void Subasta::iniciarSubasta() {
         sleep(1);      
       }
 
-      azar = rand() % 20;
+      azar = rand() % 30;
     }
     Person ganador = getOfertador();
     ganador.setDineroDisponible(ganador.getDineroDisponible() - lotes[i].getPuja());

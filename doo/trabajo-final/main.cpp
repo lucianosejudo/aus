@@ -64,13 +64,18 @@ vector<Lote> inicializarLotes() {
     Item lastDinner("La ultima cena", 3);
     vector<Item> arte {monalisa, adan, lastDinner};
 
+    // items de lote misterioso
+    Item misteryBox("Caja misteriosa", 1);
+    vector<Item> misterio { misteryBox };
+
     //crear lotes
     Lote loteAutos("Autos lujosos", 1, autos, 500000.0);
     Lote loteCelulares("Celulares", 2, celulares, 1000.0);
     Lote loteArte("Cuadros famosos", 3, arte, 1000000);
+    Lote loteMisterioso("Caja misteriosa", 4, misterio, 500);
 
     // vector de lotes
-    vector<Lote> lotes = {loteAutos, loteCelulares, loteArte};
+    vector<Lote> lotes = {loteAutos, loteCelulares, loteArte, loteMisterioso};
 
     return lotes;
 }
