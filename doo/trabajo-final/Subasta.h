@@ -1,6 +1,8 @@
 // Clase Subasta
 #include <vector>
 #include <unistd.h>
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 using namespace std;
 
@@ -48,6 +50,7 @@ void Subasta::iniciarSubasta() {
 
   for(int i = 0; i < lotes.size(); ++i) {
     int azar = 1;
+    srand(time(NULL));
     while(azar != 0) {
       // data el ofertador actual para comparar con el siguiente ofertador
       Person currentOfertador = getOfertador();
@@ -56,20 +59,23 @@ void Subasta::iniciarSubasta() {
       // nuevo ofertador
       Person ofertador = participantes[rand() % participantes.size()];
 
-      if (currentOfertadorId != ofertador.getId()) {
+      if (currentOfertadorId != ofertador.getId() & ofertador.getDineroDisponible() > lotes[i].getPuja()) {
         int puja = rand() % 1000 + lotes[i].getPuja();
         ofertador.hacerOferta(lotes[i], puja);
         setOfertador(ofertador);
         sleep(1);      
       }
 
-      azar = rand() % 10;
+      azar = rand() % 20;
     }
     Person ganador = getOfertador();
+    ganador.setDineroDisponible(ganador.getDineroDisponible() - lotes[i].getPuja());
     cout << endl;
     cout << "WINNER WINNER CHICKEN DINNER!" << endl;
-    cout << ganador.getName() << " ha ganado el lote!" << endl;
-    cout << "Pasando al siguiente lote" << endl;
+    cout << ganador.getName() << " ha ganado el lote numero " << i + 1 << endl;
+    cout << endl;
+    cout << "Pasando al siguiente lote " << endl;
     sleep(3);
   }
+  cout << "No hay mas lotes en esta subasta" << endl;
 }
